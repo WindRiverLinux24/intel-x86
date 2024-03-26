@@ -12,10 +12,6 @@ KERNELLOADEREXTENSION:append:intel-x86-64 = " kernel-grub"
 
 TARGET_SUPPORTED_KTYPES:intel-x86 = "standard preempt-rt"
 
-do_install:append:intel-x86() {
-	rm -rf ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/crypto
-}
-
 KERNEL_VERSION_SANITY_SKIP = "1"
 SRCREV_machine:intel-x86 ?= "${AUTOREV}"
 SRCREV_meta:intel-x86 ?= "${AUTOREV}"
