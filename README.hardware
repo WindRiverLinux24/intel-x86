@@ -413,3 +413,20 @@ the corresponding h/w features exist.
 
 The following features are not supported or validated:
 	x MIPI-CSI Camera
+
+3.4.4 Known Issue
+~~~~~~~~~~~~~~~~~
+
+See Common Known Issues 1).
+
+4. Common Known Issues
+======================
+
+1) You may see the message "i8042: Warning: Keylock active" in the kernel log. This
+warning appears when bit 4 of the Status Register of PS2 controller is not set to '1'.
+The interpretation of this bit is chipset specific and can vary between different
+vendors. Additionally, it may be incorrectly set by BIOS/ACPI.
+
+As long as the PS2 keyboard and mouse are functioning normally, this warning can be
+safely ignored. If you prefer not to see this warning in the kernel log, you can add
+"i8042.unlock" to the kernel boot command line.
