@@ -16,10 +16,12 @@ This BSP supports the following boards:
 	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
 	+ Intel Tiger Lake UP3: 11th Gen Intel(R) Core(TM) processors
 	+ Intel Alder Lake M: 12th Gen Intel(R) Core(TM) i7-1260U processor
+	+ Intel Sapphire Rapids: Intel Xeon(R) Platinum 8468H
 
 2. Change History
 =================
 
+	- 2024/10 (LINUXPG-2366) Add Sapphire Rapids support (Technical Preview)
 	- 2024/09 (LINUXPG-2367) Add Alder Lake U support
 	- 2024/09 (LINUXPG-2267) Add Intel Tiger Lake UP3
 	- 2024/09 (LINUXPG-2269) Add Ice Lake-SP support
@@ -431,6 +433,107 @@ copy sof/intel-signed/sof-adl.ri to /lib/firmware/intel/sof/, copy sof-tplg/sof-
 When eDP was connected, will get error message "i915 0000:00:02.0: [drm] Selective fetch
 area calculation failed in pipe A", and video/3D render stuck at 1st frame on eDP panel,
 add "i915.enable_psr2_sel_fetch=0" to kernel command line to workaround it.
+
+3.5 Intel Sapphire Rapids
+-------------------------
+
+Sapphire Rapids is the codename for Intel 4th Gen Xeon Scalable Processor, and it is a part of
+the Eagle Stream server platform.
+
+3.5.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may have some issues.
+
+[BIOS Info]
+  Vendor: Intel Corporation
+  Version: EGSDCRB1.SYS.9409.P01.2211280753
+  Release Date: 11/28/2022
+
+[Processor Info]
+  CPU family      : 6
+  Model           : 143
+  Model name      : Intel(R) Xeon(R) Platinum 8468H
+  Stepping        : 6
+  Microcode       : 0xab000161
+
+[Board Info]
+  Intel Archer City Modular
+
+3.5.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ PCI-Express
+		+ SMBus:
+			+ SMBus [0c05]: Intel Corporation Device [8086:1bc9] (rev 11)
+
+	o Network
+		+ Intel Gigabit Ethernet:
+			+ Ethernet controller [0200]: Intel Corporation I210 Gigabit Network Connection [8086:1533] (rev 03)
+
+	o USB
+		+ USB 3.0 XHCI controller:
+			+ USB controller [0c03]: Intel Corporation Device [8086:1bcd] (rev 11)
+
+	o Storage
+		+ SATA:
+			+ SATA controller [0106]: Intel Corporation Device [8086:1ba2] (rev 11)
+
+	o Multimedia
+		+ Graphics:
+			+ VGA compatible controller [0300]: ASPEED Technology, Inc. ASPEED Graphics Family [1a03:2000] (rev 52)
+
+	o Power Management
+		+ Suspend to IDLE: ACPI S0
+		+ Suspend to DISK: ACPI S4
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+
+	o Misc Devices
+		+ Input device:
+			+ USB mouse & keyboard
+		+ UART
+
+	o TPM2.0
+		+ IFX0785:00: 2.0 TPM (device-id 0x1B, rev-id 22)
+
+	o Intel Data Streaming Accelerators
+		+ System peripheral [0880]: Intel Corporation Device [8086:0b25]
+		+ System peripheral [0880]: Intel Corporation Device [8086:0cfe]
+
+	o Intel QuickAssist Technology (QAT)
+		+ Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+
+	o Intel Software Guard Extensions
+
+	o Intel Optane Persistent Memory 300 series (Crow Pass)
+
+3.5.3 Unsupported Feature
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following feature is not supported and not validated.
+
+  x Audio device [0403]: Intel Corporation Device [8086:1bc8]
+
+There is no external interface for audio device on server platform. So this feature
+is not validated.
+
+3.5.4 Notes
+~~~~~~~~~~~
+1) In order to support QAT device on Sapphire Rapids, you need to enable feature/intel-qat
+and set the following PREFERRED_PROVIDER before building.
+
+  PREFERRED_PROVIDER_virtual/qat = "qatlib"
+  PREFERRED_PROVIDER_virtual/lib32-qat = "lib32-qatlib"
+
+Please read templates/feature/intel-qat/README first.
+
+2) To support Intel SGX, you need to include feature/intel-sgx and read
+templates/feature/intel-sgx/README first.
+
+3) Default console serial port is ttyS0 at I/O 0x3f8.
 
 4. Common Known Issues
 ======================
