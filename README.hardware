@@ -425,6 +425,13 @@ SOF firmware, but SOF firmware has a private License, so we need to download fir
 copy sof/intel-signed/sof-adl.ri to /lib/firmware/intel/sof/, copy sof-tplg/sof-adl-rt711.tplg to
 /lib/firmware/intel/sof-tplg/ manually.
 
+3.4.5 Known Issues
+~~~~~~~~~~~~~~~~~~
+
+When eDP was connected, will get error message "i915 0000:00:02.0: [drm] Selective fetch
+area calculation failed in pipe A", and video/3D render stuck at 1st frame on eDP panel,
+add "i915.enable_psr2_sel_fetch=0" to kernel command line to workaround it.
+
 4. Common Known Issues
 ======================
 
