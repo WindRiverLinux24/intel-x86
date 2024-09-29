@@ -15,7 +15,7 @@ This BSP supports the following boards:
 	+ Intel Elkhart Lake: Intel Atom(R) x6425RE Processor
 	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
 	+ Intel Tiger Lake UP3: 11th Gen Intel(R) Core(TM) processors
-	+ Intel Alder Lake U: 12th Gen Intel(R) Core(TM) i7-1260U processor
+	+ Intel Alder Lake M: 12th Gen Intel(R) Core(TM) i7-1260U processor
 
 2. Change History
 =================
@@ -420,9 +420,10 @@ The following features are not supported and not validated:
 For Soundwire audio, we need to add 'KERNEL_FEATURES:append = " features/sound/intel-snd-sof.scc"'
 to conf/local.conf to build project to enable related kernel options, we haven't enabled it by
 default since SOF driver will replace HD audio driver as default one, while SOF driver requires
-SOF firmware, but SOF firmware has a private License, so we need to download files sof-adl.ri and
-sof-adl-rt711.tplg from "https://github.com/thesofproject/sof-bin.git" and put them to
-"/lib/firmware/intel/" manually.
+SOF firmware, but SOF firmware has a private License, so we need to download firmware tarball from
+"https://github.com/thesofproject/sof-bin/releases/download/v2024.06/sof-bin-2024.06.tar.gz" and
+copy sof/intel-signed/sof-adl.ri to /lib/firmware/intel/sof/, copy sof-tplg/sof-adl-rt711.tplg to
+/lib/firmware/intel/sof-tplg/ manually.
 
 4. Common Known Issues
 ======================
