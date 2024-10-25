@@ -17,10 +17,12 @@ This BSP supports the following boards:
 	+ Intel Tiger Lake UP3: 11th Gen Intel(R) Core(TM) processors
 	+ Intel Alder Lake M: 12th Gen Intel(R) Core(TM) i7-1260U processor
 	+ Intel Sapphire Rapids: Intel Xeon(R) Platinum 8468H
+	+ Intel Alder Lake N: Intel(R) Atom(TM) x7425E processor
 
 2. Change History
 =================
 
+	- 2024/11 (LINUXPG-2415) Add Alder Lake N support
 	- 2024/10 (LINUXPG-2366) Add Sapphire Rapids support (Technical Preview)
 	- 2024/09 (LINUXPG-2367) Add Alder Lake U support
 	- 2024/09 (LINUXPG-2267) Add Intel Tiger Lake UP3
@@ -534,6 +536,119 @@ Please read templates/feature/intel-qat/README first.
 templates/feature/intel-sgx/README first.
 
 3) Default console serial port is ttyS0 at I/O 0x3f8.
+
+3.6 Intel Alder Lake N
+----------------------
+
+Intel Atom processors x7000E Series feature the Efficient-core and Intel UHD Graphics
+driven by Xe architecture as 12th Gen Intel Core processors.
+
+3.6.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: ADLNFWI1.R00.4413.A00.2310120544
+	Release Date: 10/12/2023
+
+[CPU Info]
+	BIOS Model name:     Intel(R) Atom(TM) x7425E CPU @ 2.6GHz
+	BIOS CPU family:     43
+	CPU family:          6
+	Model:               190
+	Thread(s) per core:  1
+	Core(s) per socket:  4
+	Socket(s):           1
+	Stepping:            0
+
+[Board Info]
+	Alder Lake-N DDR5 CRB FAB A
+
+3.6.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ PCI-Express
+		+ I2C/SMBus
+			+ SMBus [0c05]: Intel Corporation Device [8086:54a3]
+
+	o Network
+		+ Ethernet controller [0200]: Intel Corporation Device [8086:54ac]
+		+ Ethernet controller [0200]: Intel Corporation Ethernet Controller (2) I225-IT [8086:0d9f] (rev 03)
+		+ WiFi & Bluetooth
+			+ M.2 Key E: Intel Corporation Wi-Fi 6 AX210 with Bluetooth
+
+	o USB (up to USB 3.2 Gen1)
+		+ USB Host Mode
+			+ USB controller [0c03]: Intel Corporation Device [8086:464e]
+			+ USB controller [0c03]: Intel Corporation Device [8086:54ed]
+		+ USB Device Mode
+			+ USB controller [0c03]: Intel Corporation Device [8086:465e]
+			+ USB controller [0c03]: Intel Corporation Device [8086:54ee]
+
+	o Storage
+		+ SATA
+			+ SATA controller [0106]: Intel Corporation Device [8086:54d3] (prog-if 01 [AHCI 1.0])
+		+ MMC/SD
+			+ SD Host controller [0805]: Intel Corporation Device [8086:54c4] (prog-if 01)
+		+ NVME
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S3
+		+ ACPI S4
+
+	o Multimedia
+		+ Graphics: VGA compatible controller [0300]: Intel Corporation Alder Lake-N [UHD Graphics] [8086:46d1]
+			+ DP
+			+ HDMI
+		+ Audio:
+			+ Audio Codec - ALC245
+			+ Audio via DP
+			+ Audio via HDMI
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+
+	o EDAC (Error Detection And Correction)
+
+	o Intel RAPL (Running Average Power Limit)
+
+3.6.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following feature is not supported and not validated.
+
+	x PCH TSN port 2.5G Link speed is not supported due to 1G PHY limitation
+
+3.6.4 Notes
+~~~~~~~~~~~
+
+1) To use watchdog, TCO timer must be enabled in BIOS.
+
+Intel Advanced Menu -->  PCH-IO Configuration --> Enable TCO Timer    <Enabled>
+
+2) Only PCIe 3.0 x1 is supported on NVME port due to hardware design of the CRB.
+
+3.6.5 Known Issue
+~~~~~~~~~~~~~~~~~
+
+IMC uncore free-running performance events are not supported on all SKUs of Alder Lake N.
+Our Alder Lake N CRB equipped with SKU whose Host Device ID is 0x4679, doesn't support
+IMC uncore events. You can see all counters of uncore_imc_free_running_* are zero.
+
+Also Alder Lake N only has one memory controller. Only uncore_imc_free_running_0/* are meaningful.
+
+For SKUs which support IMC uncore events, please refer to arch/x86/events/intel/uncore_snb.c
+in Linux kernel source tree.
 
 4. Common Known Issues
 ======================
