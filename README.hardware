@@ -23,7 +23,7 @@ This BSP supports the following boards:
 =================
 
 	- 2024/11 (LINUXPG-2415) Add Alder Lake N support
-	- 2024/10 (LINUXPG-2366) Add Sapphire Rapids support (Technical Preview)
+	- 2024/11 (LINUXPG-2366) Add Sapphire Rapids support
 	- 2024/09 (LINUXPG-2367) Add Alder Lake U support
 	- 2024/09 (LINUXPG-2267) Add Intel Tiger Lake UP3
 	- 2024/09 (LINUXPG-2269) Add Ice Lake-SP support
