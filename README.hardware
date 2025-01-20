@@ -21,10 +21,12 @@ This BSP supports the following boards:
 	+ Intel Raptor Lake S: 13th Gen Intel(R) Core(TM) i9-13900K processor
 	+ Intel Idaville LCC: Intel Xeon D Processors, Ice Lake-D SoC, (IOTG: Brighton City)
 	+ Intel Idaville HCC: Intel Xeon D Processors, Ice Lake-D SoC, (Moro City)
+	+ Intel TSN AIC Phase 2 on Intel Raptor Lake S (IOTG)
 
 2. Change History
 =================
 
+	- 2025/02 (LINUXPG-2491) Add TSN support on Raptor Lake S IOTG
 	- 2025/01 (LINUXPG-2477) Add Icelake-D support
 	- 2024/12 (LINUXPG-2453) Add Raptor Lake S support
 	- 2024/11 (LINUXPG-2415) Add Alder Lake N support
@@ -730,11 +732,30 @@ in a different environment it may possibly have some issues.
 
 	o TPM2.0
 
-3.7.3 Note
-~~~~~~~~~~
+3.7.3 Time-Sensitive Networking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Time-Sensitive Networking is supported by TSN AICs Phase 2 card on Raptor Lake S.
-This feature will be validated in next release of Wind River Linux LTS24.
+TSN (Time-Sensitive Networking) is supported by TSN AICs Phase 2 card on Raptor Lake S IOTG Version.
+
+[BIOS info]
+	Vendor: Intel Corporation
+	Version: RPLISFI1.R00.5134.A05.2408190644
+	Release Date: 08/19/2024
+
+[Processor Info]
+	CPU family:          6
+	Model:               183
+	Model name:          13th Gen Intel(R) Core(TM) i7-13700E @ 4.6GHz
+	Stepping:            1
+
+[Board Info]
+	Raptor Lake -S DDR5 SODIMM 1DPC IOTG RVP (SR17) with TSN AIC Phase 2
+
+[Supported device]
+	Ethernet controller [0200]: Intel Corporation Device [8086:7aad] (rev 11) with PHY mv88e2110
+
+To add TSN support in WRLinux image, please include feature/intel-tsn in your project.
+To be better use IOTG TSN Reference SW, it is recommended to build image with wrlinux-graphics distro.
 
 3.8 Intel Idaville LCC(Ice-D SoC)
 ---------------------------------
