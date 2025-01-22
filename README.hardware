@@ -844,6 +844,11 @@ The following features are not supported and not validated:
 The default serial console port is ttyS4 at MMIO 0x91688000. It may be different on your board
 due to different hardware or BIOS settings.
 
+3.8.5 Known Issue
+~~~~~~~~~~~~~~~~~
+
+See Common Known Issues 2).
+
 3.9 Intel Idaville HCC(Ice-D SoC)
 ---------------------------------
 
@@ -925,6 +930,11 @@ For S3/S4, Intel has no plan to support it on this board.
 The default serial console port is ttyS4 at MMIO 0x91308000. It may be different on your board
 due to different hardware or BIOS settings.
 
+3.9.5 Known Issue
+~~~~~~~~~~~~~~~~~
+
+See Common Known Issues 2).
+
 4. Common Known Issues
 ======================
 
@@ -936,3 +946,13 @@ vendors. Additionally, it may be incorrectly set by BIOS/ACPI.
 As long as the PS2 keyboard and mouse are functioning normally, this warning can be
 safely ignored. If you prefer not to see this warning in the kernel log, you can add
 "i8042.unlock" to the kernel boot command line.
+
+2) Engineer Samples of Intel Ethernet Adapter sometimes don't have valid MAC addresses, like
+
+    root@intel-x86-64:~# ifconfig | grep ether
+            ether 00:00:00:00:01:00
+            ether 00:00:00:00:01:01
+            ether 00:00:00:00:01:02
+            ether 00:00:00:00:01:03
+
+Before performing network testing, ensure that valid MAC addresses are assigned to each interface.
