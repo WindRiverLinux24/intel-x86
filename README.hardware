@@ -919,6 +919,12 @@ The following features are not supported and not validated:
 
 For S3/S4, Intel has no plan to support it on this board.
 
+3.9.4 Note
+~~~~~~~~~~
+
+The default serial console port is ttyS4 at MMIO 0x91308000. It may be different on your board
+due to different hardware or BIOS settings.
+
 4. Common Known Issues
 ======================
 
