@@ -1009,6 +1009,10 @@ in a different environment it may have some issues.
 		+ USB mouse & keyboard
 		+ HW Monitor: Intel CPU core temperature sensor
 
+	o TPM2.0
+
+	o EDAC (Error Detection And Correction)
+
 3.10.3 Unsupported Feature
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
