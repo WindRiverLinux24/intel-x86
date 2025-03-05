@@ -1098,6 +1098,13 @@ The following features are not supported and not validated.
 	x Suspend to Memory (ACPI S3) (Not supported by BIOS)
 	x SPI (Hardware Sequencing Flash Status Control register isn't well configured in BIOS, timeout when read/write)
 
+3.11.4 Known Issues
+~~~~~~~~~~~~~~~~~~~
+
+When using ACPI S4, kernel cannot exit from hibernation and the terminal hangup without any output. This is due to driver of
+VGA controller Millennium G550. If you want to use ACPI S4, change another card or block probing the driver by adding
+"modprobe.blacklist=matroxfb_base" to boot parameters.
+
 4. Common Known Issues
 ======================
 
