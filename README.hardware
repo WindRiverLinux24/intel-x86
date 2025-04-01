@@ -24,10 +24,12 @@ This BSP supports the following boards:
 	+ Intel TSN AIC Phase 2 on Intel Raptor Lake S (IOTG)
 	+ Advantech Server Board: 2nd generation Intel Xeon Scalable Processors, (Products formerly Cascade Lake)
 	+ Intel Harcuvar platform: Atom Processor, Denverton-NS SoC, (Harcuvar)
+	+ Intel Arrow Lake H: Intel Core Ultra 7 Processor 265H
 
 2. Change History
 =================
 
+	- 2025/04 (LINUXPG-2555) Add Arrow Lake H support (Technical Preview)
 	- 2025/03 (LINUXPG-2520) Add Denverton-NS support
 	- 2025/03 (LINUXPG-1801) Add Cascade Lake support
 	- 2025/02 (LINUXPG-2491) Add TSN support on Raptor Lake S IOTG
@@ -1104,6 +1106,102 @@ The following features are not supported and not validated.
 When using ACPI S4, kernel cannot exit from hibernation and the terminal hangup without any output. This is due to driver of
 VGA controller Millennium G550. If you want to use ACPI S4, change another card or block probing the driver by adding
 "modprobe.blacklist=matroxfb_base" to boot parameters.
+
+3.12 Intel Arrow Lake H
+-----------------------
+
+Arrow Lake is the codename for Intel Core Ultra Series 2 processors. Arrow Lake H is
+based on the Intel Core Ultra 200H Series Processors. Intel Core Ultra 7 265H is a mobile
+high-end CPU for larger notebooks and offers 16 cores consisting of 6 performance cores,
+8 efficiency cores and 2 additional "low power" efficiency cores.
+
+3.12.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: MTLPFWI1.R00.4474.D85.2412200341
+	Release Date: 12/20/2024
+
+[CPU Info]
+	vendor_id       : GenuineIntel
+	cpu family      : 6
+	model           : 197
+	model name      : Intel(R) Core(TM) Ultra 7 265H
+	stepping        : 2
+	microcode       : 0x115
+
+[Board Info]
+	ARL-H DDR5 RVP
+
+3.12.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o General Platform
+		+ perf: H/W based PMU
+
+	o Bus
+		+ PCI-Express
+		+ SMBus:
+			+ SMBus [0c05]: Intel Corporation Device [8086:7722]
+
+	o Network
+		+ Ethernet controller [0200]: Intel Corporation E1000E Device [8086:57a0]
+
+	o USB
+		+ USB controller [0c03]: Intel Corporation Device [8086:777d]
+		+ USB controller [0c03]: Intel Corporation Meteor Lake-P Thunderbolt 4 USB Controller [8086:7ec0] (rev 10)
+
+	o Storage
+		+ NVME
+
+	o Multimedia
+		+ Graphics:
+			+ VGA compatible controller [0300]: Intel Corporation Arrow Lake-P [Intel Graphics] [8086:7d51] (rev 03)
+				+ DP
+				+ DP Type C
+		+ Audio:
+			+ Multimedia audio controller [0401]: Intel Corporation Device [8086:7728]
+				+ Legacy DP audio
+				+ Legacy DP Type C audio
+
+	o Thunderbolt Type C
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #0 [8086:7ec2] (rev 10)
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #1 [8086:7ec3] (rev 10)
+
+	o Power Managemen
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S4
+
+	o TPM2.0
+
+	o EDAC (Error Detection And Correction)
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+		+ HW Monitor: Intel CPU core temperature sensor
+
+3.12.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following feature is not supported and not validated.
+
+	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 05)
+	x Soundwire Audio
+
+3.12.4 Note
+~~~~~~~~~~~
+
+GPU is supported by i915 driver. Using i915.force_probe=7d51 to force driver probe.
 
 4. Common Known Issues
 ======================
