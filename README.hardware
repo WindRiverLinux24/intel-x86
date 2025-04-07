@@ -25,10 +25,12 @@ This BSP supports the following boards:
 	+ Advantech Server Board: 2nd generation Intel Xeon Scalable Processors, (Products formerly Cascade Lake)
 	+ Intel Harcuvar platform: Atom Processor, Denverton-NS SoC, (Harcuvar)
 	+ Intel Arrow Lake H: Intel Core Ultra 7 Processor 265H
+	+ Intel Meteor Lake H: Intel(R) Core(TM) Ultra 7 155H processors
 
 2. Change History
 =================
 
+	- 2025/04 (LINUXPG-2556) Add Meteor Lake H support (Technical Preview)
 	- 2025/04 (LINUXPG-2555) Add Arrow Lake H support (Technical Preview)
 	- 2025/03 (LINUXPG-2520) Add Denverton-NS support
 	- 2025/03 (LINUXPG-1801) Add Cascade Lake support
@@ -1202,6 +1204,105 @@ The following feature is not supported and not validated.
 ~~~~~~~~~~~
 
 GPU is supported by i915 driver. Using i915.force_probe=7d51 to force driver probe.
+
+3.13 Intel Meteor Lake H
+------------------------
+
+Intel Meteor Lake is the first generation of Intel mobile processor to use a
+chiplet architecture, specifically at AI acceleration, with support of integrated
+NPU and GPU.
+
+3.13.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[BIOS info]
+	Vendor: Intel Corporation
+	BIOS Version: MTLPFWI1.R00.3292.D83.2307270921
+	Release Date: 07/27/2023
+
+[Processor info]
+	Codename	: MeteorLake ULT
+	vendor_id       : GenuineIntel
+	Core		: 16
+	ID		: 0xA06A4
+	Stepping	: C0
+	Microcode Rev	: 0x1A
+
+[Board info]
+	MTL-P DDR5 SODIMM SBS RVP
+
+3.13.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following BSP features are validated and supported.
+
+	o Bus
+		+ PCI-Express
+		+ SMBus:
+			+ Intel Corporation Meteor Lake-P SMBus Controller [8086:7e22] (rev 20)
+			+ Intel Corporation Meteor Lake-P Serial IO I2C Controller #0 [8086:7e78] (rev 20)
+		+ SPI:
+			+ Intel Corporation Meteor Lake-P SPI Controller [8086:7e23] (rev 20)
+
+	o Network
+		+ Intel Corporation Device [8086:550b] (rev 20)
+
+	o USB
+		+ Intel Corporation Meteor Lake-P USB 3.2 Gen 2x1 xHCI Host Controller [8086:7e7d] (rev 20)
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 USB Controller [8086:7ec0] (rev 10)
+		+ Intel Corporation Meteor Lake-P USB Device Controller [8086:7e7e] (rev 20)
+
+	o Storage
+		+ NVME: Sandisk Corp WD PC SN810 / Black SN850 NVMe SSD [15b7:5011] (rev 01)
+
+	o Multimedia
+		+ Graphics: Intel Corporation Meteor Lake-P [Intel Arc Graphics] [8086:7d55] (rev 08)
+			+ DP
+			+ eDP
+			+ DP Type C
+		+ Audio: Intel Corporation Meteor Lake-P HD Audio Controller [8086:7e28] (rev 20)
+			+ DP Type C audio
+
+	o Thunderbolt
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #0 [8086:7ec2] (rev 10)
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #1 [8086:7ec3] (rev 10)
+
+	o Misc Devices
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: ACPI WDAT Watchdog timer
+		+ RTC: CMOS RTC
+
+	o TPM2
+
+	o Power Management
+		+ Suspend to IDLE: ACPI S0
+		+ Suspend to DISK: ACPI S4
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+
+	o EDAC
+
+3.13.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated.
+
+	x Soundwire Audio is not supported due to the missing of firmware
+	x Intel Corporation Meteor Lake-P Gaussian & Neural-Network Accelerator [8086:7e4c] (rev 20)
+	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 04)
+
+3.13.4 Known Issues
+~~~~~~~~~~~~~~~~~~~
+
+The kdump mechanism fails to operate under an NFS root filesystem due to modifications
+in the IOMMU scalable mode, which prevent the e1000 network interface card (NIC) from
+transmitting data during the boot process of the secondary kernel. If the use of NFS
+rootfs is mandatory, it is recommended to disable the Intel IOMMU functionality by
+appending “intel_iommu=off” to the command line of dump-capture kernel.
 
 4. Common Known Issues
 ======================
