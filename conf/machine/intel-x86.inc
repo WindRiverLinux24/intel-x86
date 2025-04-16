@@ -28,9 +28,6 @@ MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-ibt-misc"
 
 EFI_PROVIDER ?= "${@bb.utils.contains('INCOMPATIBLE_LICENSE', 'GPL-3.0-only', 'systemd-boot', 'grub-efi', d)}"
 
-# Do not copy kernel and initrd to efi.img of ISO live for grub-efi
-EFI_ISO_KERNEL ?= "${@bb.utils.contains('EFI_PROVIDER', 'grub-efi', '0', '1', d)}"
-
 # grub-efi is depended in wic.bbclass, remove it to aviod depency error.
 WKS_FILE_DEPENDS_BOOTLOADERS:remove = "${@bb.utils.contains('INCOMPATIBLE_LICENSE', 'GPL-3.0-only', 'grub-efi', '', d)}"
 
